@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+}
+
+.main-link-list {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.main-link {
+  color: rgb(66, 18, 18);
+  background-color: white;
+  width: 300px;
+  height: 200px;
+  margin-top: 20px;
+  padding: 20px 0;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.main-link img {
+  width: 250px;
+  height: 160px;
+}
+
+.main-link p {
+  font-family: 'Roboto';
+}
+
+.rectangle {
+  height: 7px;
+  width: 60px;
+  background-color: brown;
+  margin: 50px auto;
+}
+
+.main-link:hover {
+  transition: .5s;
+  transform: scale(1.1);
+  cursor: pointer;
+  box-shadow: 0 8px 50px 0px black;
+}
