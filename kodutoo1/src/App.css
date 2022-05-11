@@ -6,16 +6,16 @@ body {
   text-align: center;
 }
 
-button {
+.btn {
   background-color: green;
   color: rgb(192, 191, 191);
 }
 
-button:hover {
+.btn:hover {
   height: 100px;
 }
 
-button:active {
+.btn:active {
   cursor: grab;
 }
 
@@ -25,4 +25,11 @@ p {
 
 p:hover {
   font-size: 24px;
+}
+
+.menuu {
+  display: flex;
+  justify-content:space-evenly;
+  background-color: rgb(180, 174, 120);
+  padding: 5px;
 }

@@ -6,16 +6,16 @@ import Ostukorv from './pages/Ostukorv';
 function App() {
   return (
     <div className="App">
-     <Link to="/">
-     <button>Avalehele</button>
-     </Link>
-     <Link to="/ostukorv">
-     <button>Ostukorvi</button>
-     </Link>
-     <Routes>
-      <Route path="" element={ <Avaleht /> } />
-      <Route path="ostukorv" element={<Ostukorv /> } />
-     </Routes>
+      <Link to="/">
+      <button>Avalehele</button>
+      </Link>
+      <Link to="/ostukorv">
+      <button>Ostukorvi</button>
+      </Link>
+      <Routes>
+        <Route path="" element={ <Avaleht /> } />
+        <Route path="ostukorv" element={<Ostukorv /> } />
+      </Routes>
     </div>
   );
 }
