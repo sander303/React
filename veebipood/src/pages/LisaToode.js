@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 
 function LisaToode() {
+    console.log("olen lisa toode lehel");
     // useState
     const [s6numKasutajale, m22raS6num] = useState("");
     const toodeRef = useRef();
