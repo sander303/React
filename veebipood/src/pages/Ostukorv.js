@@ -30,11 +30,12 @@ function Ostukorv() {
 
     return (
     <div>
-            <div>Ostukorvis on {ostukorviEsemed.length} toodet</div>
-            <button onClick={() => tyhjenda()}>Tühjenda</button>
+        {ostukorviEsemed.length > 0 && <div>Ostukorvis on {ostukorviEsemed.length} toodet</div>}
+        {ostukorviEsemed.length > 0 && <button onClick={() => tyhjenda()}>Tühjenda</button>}
+        {ostukorviEsemed.length === 0 && <div>Ostukorv on tühi</div>}
         {ostukorviEsemed.map(element =>
             <div>
-                 {element}
+                 {element.nimi} ({element.hind} €)
                  <button onClick={() => kustutaOstukorvist(element)}>X</button>
                  <button onClick={() => lisaOstukorvi(element)}>+</button>
             </div>)}

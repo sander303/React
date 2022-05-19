@@ -1,4 +1,6 @@
 // import { useState } from "react";
+// npm run build
+// firebase deploy
 
 function Avaleht() {
     console.log("olen avalehel");
@@ -31,9 +33,9 @@ function Avaleht() {
     return (
     <div>
         {lisatudTooted.map(element => 
-        <div key={element}>
-            {element}
-            <button onClick={() => lisaOstukorvi(element)}>Lisa {element} ostukorvi</button>
+        <div key={element.nimi}>
+            {element.nimi} ({element.hind} €)
+            <button onClick={() => lisaOstukorvi(element)}>Lisa {element.nimi} ostukorvi</button>
         </div>)}
     </div>
     );
