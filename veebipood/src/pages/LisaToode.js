@@ -15,13 +15,22 @@ function LisaToode() {
         } else if (hindRef.current.value < 0) {
             m22raS6num("Hind ei saa olla negatiivne");
         } else {
+            const uusToode = {nimi: toodeRef.current.value, hind: hindRef.current.value}
+            fetch("https://test-project-f4bfc-default-rtdb.europe-west1.firebasedatabase.app/tooted.json", {
+                method: "POST",
+                body: JSON.stringify(uusToode),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
             m22raS6num("Toode edukalt lisatud");
-            let tooted = [];
-            if (localStorage.getItem("võti") !== null) {
-                tooted = JSON.parse(localStorage.getItem("võti"));
-            }
-            tooted.push({nimi: toodeRef.current.value, hind: hindRef.current.value});
-            localStorage.setItem("võti", JSON.stringify(tooted));
+
+            // let tooted = [];
+            // if (localStorage.getItem("võti") !== null) {
+            //     tooted = JSON.parse(localStorage.getItem("võti"));
+            // }
+            // tooted.push({nimi: toodeRef.current.value, hind: hindRef.current.value});
+            // localStorage.setItem("võti", JSON.stringify(tooted));
         }
     }
 

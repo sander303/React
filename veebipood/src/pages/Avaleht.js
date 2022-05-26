@@ -2,12 +2,28 @@
 // npm run build
 // firebase deploy
 
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Avaleht() {
     console.log("olen avalehel");
                             //kui siit tuleb tühjus,                siis võta tühi massiiv
-    const lisatudTooted = JSON.parse(localStorage.getItem("võti")) || [];
+    // const lisatudTooted = JSON.parse(localStorage.getItem("võti")) || [];
+    const [lisatudTooted, uuendaTooted] = useState([]);
+
+    useEffect(()=>{
+        fetch("https://test-project-f4bfc-default-rtdb.europe-west1.firebasedatabase.app/tooted.json")
+        .then(tagastus => tagastus.json())
+        .then(object => {
+            const tootedAndmebaasist = [];
+            for (const key in object) {
+                tootedAndmebaasist.push(object[key])
+            }
+            console.log(tootedAndmebaasist);
+            uuendaTooted(tootedAndmebaasist);
+        })
+    },[]);
+    
 
     // kuvan massiivina kõik tooted välja
     // JSON.parse()
