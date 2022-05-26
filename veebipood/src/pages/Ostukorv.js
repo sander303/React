@@ -28,6 +28,33 @@ function Ostukorv() {
         sessionStorage.setItem("ostukorviTooted", JSON.stringify([]));
     }
 
+    const arvutaKoguSumma = () => {
+        let koguSumma = 0;
+        ostukorviEsemed.forEach(element => koguSumma += Number(element.hind));
+        return koguSumma;
+    }
+
+    const maksma = () => {
+        const makseAndmed = {
+            "api_username": "92ddcfab96e34a5f",
+            "account_name": "EUR3D1",
+            "amount": arvutaKoguSumma(),
+            "order_reference": Math.floor(Math.random()*899999+100000),
+            "nonce": "a9bgt902" + new Date() + Math.floor(Math.random()*899999+100000),
+            "timestamp": new Date(),
+            "customer_url": "https://testproject456.web.app/"
+            }
+            fetch("https://igw-demo.every-pay.com/api/v4/payments/oneoff", {
+                method: "POST",
+                body: JSON.stringify(makseAndmed),
+                headers: {
+                    "Authorization": "Basic OTJkZGNmYWI5NmUzNGE1Zjo4Y2QxOWU5OWU5YzJjMjA4ZWU1NjNhYmY3ZDBlNGRhZA==",
+                    "Content-Type": "application/json"
+                }
+            }).then(tagastus => tagastus.json())
+              .then(sisu => window.location.href = sisu.payment_link);
+    }
+
     return (
     <div>
         {ostukorviEsemed.length > 0 && <div>Ostukorvis on {ostukorviEsemed.length} toodet</div>}
@@ -39,6 +66,8 @@ function Ostukorv() {
                  <button onClick={() => kustutaOstukorvist(element)}>X</button>
                  <button onClick={() => lisaOstukorvi(element)}>+</button>
             </div>)}
+            {ostukorviEsemed.length > 0 && <div>SUMMA KOKKU: {arvutaKoguSumma()} €</div>}
+            {ostukorviEsemed.length > 0 && <button onClick={() => maksma()}>MAKSMA</button>}
     </div>
     );
 }

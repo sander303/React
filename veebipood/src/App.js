@@ -5,6 +5,7 @@ import HaldaTooteid from './pages/HaldaTooteid';
 import LisaToode from './pages/LisaToode';
 import Ostukorv from './pages/Ostukorv';
 import Poed from './pages/Poed';
+import YksikToode from './pages/YksikToode';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="lisa-toode" element={<LisaToode /> } />
         <Route path="halda-tooteid" element={<HaldaTooteid /> } />
         <Route path="poed" element={<Poed /> } />
+        <Route path="toode/:nimi" element={<YksikToode /> } />
       </Routes>
     </div>
   );
