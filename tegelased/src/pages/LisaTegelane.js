@@ -8,16 +8,15 @@ function LisaTegelane() {
     const vanusRef = useRef();
 
     const lisaUusTegelane = () => {
-        let tegelased = [];
-            if (localStorage.getItem("lisatudTegelased") !== null) {
-                tegelased = JSON.parse(localStorage.getItem("lisatudTegelased"));
+        const uusTegelane = {eesNimi: eesnimiRef.current.value, perekonnaNimi: perekonnanimiRef.current.value,
+        asukoht: asukohtRef.current.value, vanus: vanusRef.current.value}
+        fetch("https://tegelased-152ea-default-rtdb.europe-west1.firebasedatabase.app/tegelased.json", {
+            method: "POST",
+            body: JSON.stringify(uusTegelane),
+            headers: {
+                "Content-Type": "application/json"
             }
-            tegelased.push({
-                eesNimi: eesnimiRef.current.value,
-                perekonnaNimi: perekonnanimiRef.current.value,
-                asukoht: asukohtRef.current.value,
-                vanus: vanusRef.current.value});
-            localStorage.setItem("lisatudTegelased", JSON.stringify(tegelased));
+        })
     }
 
     return (

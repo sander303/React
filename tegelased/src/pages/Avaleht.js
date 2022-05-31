@@ -1,8 +1,21 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Avaleht() {
 
-    const tegelased = JSON.parse(localStorage.getItem("lisatudTegelased")) || [];
+    const [tegelased, uuendaTegelasi] = useState([]);
+
+    useEffect(() => {
+        fetch("https://tegelased-152ea-default-rtdb.europe-west1.firebasedatabase.app/tegelased.json")
+        .then(res => res.json())
+        .then(data => {
+            const tegelasedAndmebaasist = [];
+            for (const key in data) {
+                tegelasedAndmebaasist.push(data[key]);
+            }
+            uuendaTegelasi(tegelasedAndmebaasist);
+        })
+    },[])
       
     const valiTegelane = (tegelane) => {
         const valitudTegelased = JSON.parse(sessionStorage.getItem("valitudTegelased")) || [];
