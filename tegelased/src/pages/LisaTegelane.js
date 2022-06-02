@@ -1,11 +1,15 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Button, FloatingLabel, Form } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 function LisaTegelane() {
 
+    const { t } = useTranslation();
     const eesnimiRef = useRef();
     const perekonnanimiRef = useRef();
     const asukohtRef = useRef();
     const vanusRef = useRef();
+    const [name, setName] = useState();
 
     const lisaUusTegelane = () => {
         const uusTegelane = {eesNimi: eesnimiRef.current.value, perekonnaNimi: perekonnanimiRef.current.value,
@@ -20,17 +24,29 @@ function LisaTegelane() {
     }
 
     return (
-        <div>
-            <label>Eesnimi:</label><br/>
-            <input ref={eesnimiRef} type="text" /><br/>
-            <label>Perekonnanimi:</label><br/>
-            <input ref={perekonnanimiRef} type="text" /><br/>
-            <label>Asukoht:</label><br/>
-            <input ref={asukohtRef} type="text" /><br/>
-            <label>Vanus:</label><br/>
-            <input ref={vanusRef} type="number" /><br/>
-            <button onClick={() => lisaUusTegelane()}>Sisesta</button><br/>
-        </div>
+        <Form>
+            <Form.Group className="mb-3">
+                <FloatingLabel label={t("char.first-name")} className="mb3">
+                    <Form.Control ref={eesnimiRef} onChange={(e) => setName(e.target.value)} type="text" placeholder="eesnimi" className="input" />
+                </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <FloatingLabel label={t("char.last-name")} className="mb3">
+                    <Form.Control ref={perekonnanimiRef} type="text" placeholder="perekonnanimi" className="input" />
+                </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <FloatingLabel label={t("char.location")} className="mb3">
+                    <Form.Control ref={asukohtRef} type="text" placeholder="asukoht" className="input" />
+                </FloatingLabel>
+            </Form.Group>
+            <Form.Group className="mb-3">
+                <FloatingLabel label={t("char.age")} className="mb3">
+                    <Form.Control ref={vanusRef} type="number" placeholder="vanus" className="input" />
+                </FloatingLabel>
+            </Form.Group> 
+            <Button disabled={!name} variant="primary" onClick={() => lisaUusTegelane()}>{t("char.new-char-button")}</Button>
+        </Form>
     );
 }
 

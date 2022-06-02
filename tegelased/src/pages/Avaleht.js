@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Avaleht() {
 
     const [tegelased, uuendaTegelasi] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetch("https://tegelased-152ea-default-rtdb.europe-west1.firebasedatabase.app/tegelased.json")
@@ -24,21 +27,33 @@ function Avaleht() {
     }
       
     return (
-        <div className="content">
-        {tegelased.map(tegelane =>
-            <div className="tegelane">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>{t("char.first-name")}</th>
+              <th>{t("char.last-name")}</th>
+              <th>{t("char.location")}</th>
+              <th>{t("char.age")}</th>
+            </tr>
+          </thead>
+          <tbody>
+        {tegelased.map(tegelane =>       
+            <tr> 
+              <td>
                 <Link to={"tegelane/" + tegelane.eesNimi.toLowerCase().replaceAll(" ","-").replaceAll(",", "").replaceAll("õ", "o")
-                                      + tegelane.perekonnaNimi.toLowerCase().replaceAll(" ","-").replaceAll(",", "").replaceAll("õ", "o")}>
-                    <div>{tegelane.eesNimi}</div>
-                    <div>{tegelane.perekonnaNimi}</div>
-                    <div>{tegelane.asukoht}</div>
-                    <div>{tegelane.vanus}</div>
-                </Link>
-                <div><button onClick={() => valiTegelane(tegelane)}>Vali</button></div>
-            </div>
-            )}      
-        </div>
-    );
+                                      + tegelane.perekonnaNimi.toLowerCase().replaceAll(" ","-").replaceAll(",", "").replaceAll("õ", "o")}>{tegelased.indexOf(tegelane) + 1}</Link>
+              </td>	
+              <td>{tegelane.eesNimi}</td>
+              <td>{tegelane.perekonnaNimi}</td>
+              <td>{tegelane.asukoht}</td>
+              <td>{tegelane.vanus}</td>
+              <td className="d-grid gap-2"><Button onClick={() => valiTegelane(tegelane)}>{t("char.select-char-button")}</Button></td>
+            </tr>
+        )}
+          </tbody>
+        </Table>
+        );
 }
 
 export default Avaleht;

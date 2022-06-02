@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 function ValitudTegelased() {
 
+    const { t } = useTranslation();
     const [valitudTegelased, uuendaTegelasi] = useState(JSON.parse(sessionStorage.getItem("valitudTegelased")) || []);
 
     const lisaTegelane = (tegelane) => {
@@ -52,7 +55,7 @@ function ValitudTegelased() {
     return(
         <div>
             <div className="kustuta">
-                {valitudTegelased.length > 0 && <button onClick={() => kustutaK6ik()}>Kustuta kõik valitud tegelased</button>}
+                {valitudTegelased.length > 0 && <Button variant="danger" onClick={() => kustutaK6ik()}>{t("char.delete-all-button")}</Button>}
             </div>
             <div className="content">
                 {valitudTegelased.map(tegelane =>
@@ -61,17 +64,17 @@ function ValitudTegelased() {
                     <div>{tegelane.perekonnaNimi}</div>
                     <div>{tegelane.asukoht}</div>
                     <div>{tegelane.vanus}</div>
-                    <button onClick={() => lisaTegelane(tegelane)}>Lisa</button><br />
-                    <button onClick={() => kustutaTegelane(tegelane)}>Eemalda</button><br />
+                    <button onClick={() => lisaTegelane(tegelane)}>{t("char.add-char-button")}</button><br />
+                    <button onClick={() => kustutaTegelane(tegelane)}>{t("char.remove-char-button")}</button><br />
                 </div>
                 )} 
             </div>
             <div className="text">
-                {valitudTegelased.length > 0 && <div>Valitud on {valitudTegelased.length} tegelast</div>}
-                {valitudTegelased.length === 0 && <div>Ühtegi tegelast pole valitud</div>}
+                {valitudTegelased.length > 0 && <div>{t("char.selected-chars")}: {valitudTegelased.length}</div>}
+                {valitudTegelased.length === 0 && <div>{t("char.no-selected-chars")}</div>}
             </div>
-            {valitudTegelased.length > 0 && <button onClick={() => maksma()}>MAKSMA</button>}
-            {valitudTegelased.length > 0 && <div>Vanused kokku: {arvutaKoguVanus()}</div>}
+            {valitudTegelased.length > 0 && <div>{t("char.total-age")}: {arvutaKoguVanus()}</div>}
+            {valitudTegelased.length > 0 && <button onClick={() => maksma()}>{t("body.pay-button")}</button>}           
         </div>
     );
 }

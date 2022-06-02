@@ -1,5 +1,6 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import NavigationBar from './components/NavigationBar';
 import Autod from './pages/Autod';
 import Avaleht from './pages/Avaleht';
 import LisaTegelane from './pages/LisaTegelane';
@@ -11,18 +12,7 @@ function App() {
 
   return (
     <div>
-      <Link to="/">
-        <button>Avaleht</button>
-      </Link>
-      <Link to="/valitud-tegelased">
-        <button>Valitud Tegelased</button>
-      </Link>
-      <Link to="/lisa-tegelane">
-        <button>Lisa Tegelane</button>
-      </Link>
-      <Link to="/autod">
-        <button>Autod</button>
-      </Link>
+      <NavigationBar />
       <Routes>
         <Route path="" exact element={ <Avaleht /> } />
         <Route path="valitud-tegelased" exact element={ <ValitudTegelased /> } />

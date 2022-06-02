@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(213, 218, 218);
+  background-color: rgb(209, 218, 250);
 }
 
 .content {
@@ -12,13 +12,13 @@ body {
 
 .tegelane {
   border-style: solid;
-  height: 135px;
+  height: 165px;
   width: 200px;
   text-align: center;
   border-radius: 20px;
   border-width: 2px;
   border-color: gray;
-  background-color: rgb(238, 229, 217);
+  background-color: rgb(246, 246, 255);
 }
 
 .kustuta {
@@ -28,4 +28,16 @@ body {
 .text {
   text-align: center;
   font-size: 24px;
+}
+
+.lang {
+  display: flex;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px;
+  gap: 10px;
+}
+
+.input {
+  width: 300px;
 }

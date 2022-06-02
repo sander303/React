@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+
 function Autod() {
 
-    const [cars, setCars] = useState(JSON.parse(localStorage.getItem("cars")) || []);
+    const [ cars ] = useState(JSON.parse(localStorage.getItem("cars")) || []);
 
     return (
         <div className="content">
