@@ -41,3 +41,9 @@ body {
 .input {
   width: 300px;
 }
+
+.kogus {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}

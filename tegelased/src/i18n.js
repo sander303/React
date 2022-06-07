@@ -13,8 +13,8 @@ const resources = {
         "navbar.cars-button": "Autod",
         "char.select-char-button": "Vali",
         "char.delete-all-button": "Kustuta kõik tegelased",
-        "char.add-char-button": "Lisa",
-        "char.remove-char-button": "Eemalda",
+        "char.add-button": "Lisa",
+        "char.decrease-button": "Vähenda",
         "char.selected-chars": "Valitud tegelasi",
         "char.no-selected-chars": "Ei ole valitud ühtegi tegelast",
         "body.pay-button": "MAKSMA",
@@ -23,7 +23,8 @@ const resources = {
         "char.last-name": "Perekonnanimi",
         "char.location": "Asukoht",
         "char.age": "Vanus",
-        "char.new-char-button": "Sisesta"
+        "char.new-char-button": "Sisesta",
+        "char.remove-button": "Kustuta"
     }
   },
   en: {
@@ -34,8 +35,8 @@ const resources = {
         "navbar.cars-button": "Cars",
         "char.select-char-button": "Select",
         "char.delete-all-button": "Delete all characters",
-        "char.add-char-button": "Add",
-        "char.remove-char-button": "Remove",
+        "char.add-button": "Add",
+        "char.decrease-button": "Decrease",
         "char.selected-chars": "Selected characters",
         "char.no-selected-chars": "No characters have been selected",
         "body.pay-button": "PAY",
@@ -44,7 +45,8 @@ const resources = {
         "char.last-name": "Last name",
         "char.location": "Location",
         "char.age": "Age",
-        "char.new-char-button": "Submit"
+        "char.new-char-button": "Submit",
+        "char.remove-button": "Delete"
     }
   }
 };

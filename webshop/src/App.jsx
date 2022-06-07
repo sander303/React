@@ -4,6 +4,7 @@ import NavigationBar from './components/NavigationBar';
 import AdminHome from './pages/AdminHome';
 import Cart from './pages/Cart';
 import Home from './pages/Home';
+import Shops from './pages/Shops';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="" exact element={ <Home /> } />
         <Route path="cart" exact element={ <Cart /> } />
         <Route path="admin" exact element={ <AdminHome /> } />
+        <Route path="poed" exact element={ <Shops /> } />
       </Routes>
     </div>
   );

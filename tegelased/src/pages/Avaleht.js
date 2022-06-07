@@ -20,9 +20,14 @@ function Avaleht() {
         })
     },[])
       
-    const valiTegelane = (tegelane) => {
-        const valitudTegelased = JSON.parse(sessionStorage.getItem("valitudTegelased")) || [];
-        valitudTegelased.push(tegelane);
+    const valiTegelane = (valitudTegelane) => {
+        let valitudTegelased = JSON.parse(sessionStorage.getItem("valitudTegelased")) || [];
+        const index = valitudTegelased.findIndex(element => element.tegelane.eesNimi === valitudTegelane.eesNimi);
+        if (index >= 0) {
+          valitudTegelased[index].kogus = valitudTegelased[index].kogus + 1;
+        } else {
+          valitudTegelased.push({"tegelane": valitudTegelane, "kogus": 1});
+        }
         sessionStorage.setItem("valitudTegelased", JSON.stringify(valitudTegelased));
     }
       

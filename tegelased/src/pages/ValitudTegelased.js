@@ -7,15 +7,26 @@ function ValitudTegelased() {
     const { t } = useTranslation();
     const [valitudTegelased, uuendaTegelasi] = useState(JSON.parse(sessionStorage.getItem("valitudTegelased")) || []);
 
-    const lisaTegelane = (tegelane) => {
-        valitudTegelased.push(tegelane);
+    const suurendaKogust = (lisatavTegelane) => {
+        const index = valitudTegelased.findIndex(element => element.tegelane.eesNimi === lisatavTegelane.tegelane.eesNimi);
+        valitudTegelased[index].kogus = valitudTegelased[index].kogus + 1;
         uuendaTegelasi(valitudTegelased.slice());
         sessionStorage.setItem("valitudTegelased", JSON.stringify(valitudTegelased));
     }
 
-    const kustutaTegelane = (tegelane) => {
-        const jkNumber = valitudTegelased.indexOf(tegelane);
-        valitudTegelased.splice(jkNumber, 1);
+    const v2hendaKogust = (v2hendatavTegelane) => {
+        const index = valitudTegelased.findIndex(element => element.tegelane.eesNimi === v2hendatavTegelane.tegelane.eesNimi);
+        valitudTegelased[index].kogus = valitudTegelased[index].kogus - 1;
+        if (valitudTegelased[index].kogus === 0) {
+            kustutaTegelane(v2hendatavTegelane);
+        }
+        uuendaTegelasi(valitudTegelased.slice());
+        sessionStorage.setItem("valitudTegelased", JSON.stringify(valitudTegelased));
+    }
+
+    const kustutaTegelane = (kustutatavTegelane) => {
+        const index = valitudTegelased.findIndex(element => element.tegelane.eesNimi === kustutatavTegelane.tegelane.eesNimi);
+        valitudTegelased.splice(index, 1);
         uuendaTegelasi(valitudTegelased.slice());
         sessionStorage.setItem("valitudTegelased", JSON.stringify(valitudTegelased));
     }
@@ -27,7 +38,7 @@ function ValitudTegelased() {
 
     const arvutaKoguVanus = () => {
         let koguVanus = 0;
-        valitudTegelased.forEach(tegelane => koguVanus += Number(tegelane.vanus));
+        valitudTegelased.forEach(element => koguVanus += (Number(element.tegelane.vanus) * element.kogus));
         return koguVanus;
     }
 
@@ -58,14 +69,18 @@ function ValitudTegelased() {
                 {valitudTegelased.length > 0 && <Button variant="danger" onClick={() => kustutaK6ik()}>{t("char.delete-all-button")}</Button>}
             </div>
             <div className="content">
-                {valitudTegelased.map(tegelane =>
+                {valitudTegelased.map(element =>
                 <div className="tegelane">
-                    <div>{tegelane.eesNimi}</div>
-                    <div>{tegelane.perekonnaNimi}</div>
-                    <div>{tegelane.asukoht}</div>
-                    <div>{tegelane.vanus}</div>
-                    <button onClick={() => lisaTegelane(tegelane)}>{t("char.add-char-button")}</button><br />
-                    <button onClick={() => kustutaTegelane(tegelane)}>{t("char.remove-char-button")}</button><br />
+                    <div>{element.tegelane.eesNimi}</div>
+                    <div>{element.tegelane.perekonnaNimi}</div>
+                    <div>{element.tegelane.asukoht}</div>
+                    <div>{element.tegelane.vanus}</div>
+                    <div className="kogus">
+                        <button onClick={() => suurendaKogust(element)}>+</button>
+                        <div>{element.kogus} tk</div>            
+                        <button onClick={() => v2hendaKogust(element)}>-</button>
+                    </div>
+                    <button onClick={() => kustutaTegelane(element)}>{t("char.remove-button")}</button><br />                   
                 </div>
                 )} 
             </div>
