@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer,  Marker, Popup } from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import ChangeView from '../components/ChangeView';
@@ -17,27 +17,19 @@ function Map(props) {
 
   return (
   <div>
-    <MapContainer className='map' center={props.mapCoordinaates.lngLat} zoom={props.mapCoordinaates.zoom} scrollWheelZoom={false}>
+    <MapContainer className='map' center={props.mapCoordinaates.lngLat} zoom={props.mapCoordinaates.zoom}>
       <ChangeView center={props.mapCoordinaates.lngLat} zoom={props.mapCoordinaates.zoom} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[59.4231, 24.7991]}>
-        <Popup>
-          Ülemiste keskus. <br /> Avatud 9-20
-        </Popup>
-      </Marker>
-      <Marker position={[59.4277, 24.7193]}>
-        <Popup>
-          Kristiine keskus. <br /> Avatud 10-21
-        </Popup>
-      </Marker>
-      <Marker position={[60.1684, 24.9421]}>
-        <Popup>
-          Helsinki keskus. <br /> Avatud 24h
-        </Popup>
-      </Marker>
+      {props.shopMarkers.map(element =>
+        <Marker position={[element.latitude, element.longitude]}>
+          <Popup>
+            {element.name}<br />{element.openTime}
+          </Popup>
+        </Marker>
+        )}
     </MapContainer>
   </div>)
 }
