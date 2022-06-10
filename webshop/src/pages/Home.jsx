@@ -1,10 +1,15 @@
+import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import "../css/home.css";
 
 function Home() {
 
     const productsUrl = "https://react-webshop-9e509-default-rtdb.europe-west1.firebasedatabase.app/products.json"
     const [products, setProducts] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetch(productsUrl)
@@ -32,6 +37,7 @@ function Home() {
         sessionStorage.setItem("cartProducts", cProducts);
         toast.success('Toode edukalt lisatud!', {
             position: "bottom-right",
+            theme: "dark"
             });
     }
 
@@ -57,18 +63,21 @@ function Home() {
 
     return (
         <div>
-            <button onClick={sortAZ}>Sorteeri A-Z</button>
-            <button onClick={sortZA}>Sorteeri Z-A</button>
-            <button onClick={sortPriceAsc}>Sorteeri hind kasvavalt</button>
-            <button onClick={sortPriceDesc}>Sorteeri hind kahanevalt</button>
+            <div className="sortButtons">
+                <Button variant="dark" onClick={sortAZ}>{t("sort.AZ")}</Button>
+                <Button variant="dark" onClick={sortZA}>{t("sort.ZA")}</Button>
+                <Button variant="dark" onClick={sortPriceAsc}>{t("sort.priceAsc")}</Button>
+                <Button variant="dark" onClick={sortPriceDesc}>{t("sort.priceDesc")}</Button>
+            </div>
+            <div className="homeContents">
             {products.map(element => 
-                <div>
-                    <img src={element.imgSrc} alt="" />
-                    <div>{element.name}</div>
-                    <div>{element.price}</div>
-                    <button onClick={() => addToCart(element)}>Lisa ostukorvi</button>
-                </div>
-            )}
+                <div className="productContainer" key={element.id}>
+                    <img className="homeProductPicture" src={element.imgSrc} alt="" />
+                    <div><Link to={"/toode/" + element.id}>{element.name}</Link></div>
+                    <div>{element.price} €</div>
+                    <Button variant="light" onClick={() => addToCart(element)}>{t("shops.add-btn")} <img className="homeCartImage" src={require('../assets/shopping-cart.png')} alt="" /></Button>
+                </div>)}
+            </div>
             <ToastContainer />
         </div>
     );

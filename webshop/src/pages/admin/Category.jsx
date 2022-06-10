@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
+import { Button, FloatingLabel, Form } from "react-bootstrap";
 
 function Category() {
 
@@ -7,15 +9,16 @@ function Category() {
     const nameRef = useRef();
     const categoryUrl = "https://react-webshop-9e509-default-rtdb.europe-west1.firebasedatabase.app/categories.json"
     const [categories, setCategories] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetch(categoryUrl).then(res => res.json())
         .then(body => {
-            const newArray = [];
+            const categoriesFromDb = [];
             for (const key in body) {
-                newArray.push(body[key]);
+                categoriesFromDb.push(body[key]);
             }
-            setCategories(newArray);
+            setCategories(categoriesFromDb);
         })
     }, []);
 
@@ -55,15 +58,21 @@ function Category() {
 
     return (
         <div>
-            <label>ID</label> <br />
-            <input ref={idRef} type="text" /> <br />
-            <label>Nimi</label> <br />
-            <input ref={nameRef} type="text" /> <br />
-            <button onClick={addCategory}>Sisesta</button>
+            <Form>
+                <Form.Group className="mb-3 d-grid gap-2">
+                    <FloatingLabel label="ID" className="mb3">
+                        <Form.Control ref={idRef} type="number" placeholder="id" />
+                    </FloatingLabel>
+                    <FloatingLabel label={t("category.name")} className="mb3">
+                        <Form.Control ref={nameRef} type="text" placeholder="name" />
+                    </FloatingLabel>
+                    <Button variant="secondary" onClick={() => addCategory()}>{t("category.enter")}</Button>
+                </Form.Group>    
+            </Form>
             {categories.map((element, index) =>
-                <div key={element.id}>
-                    <span>{element.name}</span>
-                    <button onClick={() => deleteCategory(index)}>X</button>
+                <div className="categoryContainer" key={element.id}>
+                    <div className="category">{element.name}</div>
+                    <Button variant="danger" onClick={() => deleteCategory(index)}>{t("category.delete")}</Button>
                 </div>
             )}
             <ToastContainer />

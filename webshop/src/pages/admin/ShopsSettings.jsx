@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
+import { Button, FloatingLabel, Form, Table } from "react-bootstrap";
 
 function ShopsSettings() {
 
+    const { t } = useTranslation();
     const [shops, setShops] = useState([]);
     const shopRef = useRef();
     const openTimeRef = useRef();
@@ -62,23 +65,45 @@ function ShopsSettings() {
 
     return (
         <div>
-            <label>Poe nimi</label> <br />
-            <input ref={shopRef} type="text" /><br />
-            <label>Poe lahtiolekuaeg</label><br />
-            <input ref={openTimeRef} type="text" /><br />
-            <label>Poe laiuskraadid</label><br />
-            <input ref={latitudeRef} type="text" /><br />
-            <label>Poe pikkuskraadid</label><br />
-            <input ref={longitudeRef} type="text" /><br />
-            <button onClick={() => addShop()}>Lisa</button><br />
-            {shops.map(element => 
-            <div>
-                <span>{element.name}</span><br />
-                <span>{element.openTime}</span><br />
-                <span>{element.latitude}</span><br />
-                <span>{element.longitude}</span><br />
-                <button onClick={() => deleteShop(element)}>X</button>
-            </div>)}
+            <Form>
+                <Form.Group className="mb-3 d-grid gap-2">
+                    <FloatingLabel label={t("shops.name")} className="mb3">
+                        <Form.Control ref={shopRef} type="text" placeholder="name" />
+                    </FloatingLabel>
+                    <FloatingLabel label={t("shops.openHrs")} className="mb3">
+                        <Form.Control ref={openTimeRef} type="text" placeholder="openHrs" />
+                    </FloatingLabel>
+                    <FloatingLabel label={t("shops.latitude")} className="mb3">
+                        <Form.Control ref={latitudeRef} type="text" placeholder="latitude" />
+                    </FloatingLabel>
+                    <FloatingLabel label={t("shops.longitude")} className="mb3">
+                        <Form.Control ref={longitudeRef} type="text" placeholder="longitude" />
+                    </FloatingLabel>
+                    <Button variant="secondary" onClick={() => addShop()}>{t("shops.add-btn")}</Button>
+                </Form.Group>    
+            </Form>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>{t("shops.name")}</th>
+                        <th>{t("shops.openHrs")}</th>
+                        <th>{t("shops.latitude")}</th>
+                        <th>{t("shops.longitude")}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {shops.map(element =>       
+                    <tr> 
+                        <td>{element.name}</td>	
+                        <td>{element.openTime}</td>
+                        <td>{element.latitude}</td>
+                        <td>{element.longitude}</td>
+                        <td className="tableBtn"><Button variant="danger" onClick={() => deleteShop(element)}>X</Button>
+                        </td>
+                    </tr>
+                )}
+                </tbody>         
+            </Table>
             <ToastContainer />
         </div>
     );

@@ -18,7 +18,7 @@ function NavigationBar() {
             <Nav className="me-auto">
                 <Nav.Link as={Link} to="/admin">{t("navbar.admin-button")}</Nav.Link>
                 <Nav.Link as={Link} to="/cart">{t("navbar.cart-button")}</Nav.Link>  
-                <Nav.Link as={Link} to="/poed">Poed</Nav.Link>  
+                <Nav.Link as={Link} to="/poed">{t("navbar.shops-button")}</Nav.Link>  
                 <div>{t('Welcome to React')}</div> 
                 <img className="lang" onClick={() => onChangeLanguage('ee')} src={require('../assets/estonia.png')} alt="" />  
                 <img className="lang" onClick={() => onChangeLanguage('en')} src={require('../assets/uk.png')} alt="" />

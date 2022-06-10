@@ -2,12 +2,12 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid gray;
-    margin: 0 10%;
     padding: 10px 0;
 }
 
 .cartProductImg {
     width: 200px;
+    height: 300px;
 }
 
 .cartProductName {
@@ -16,6 +16,7 @@
 
 .cartProductPrice {
     width: 70px;
+    text-align: center;
 }
 
 .cartProductQuantity {
@@ -39,4 +40,26 @@
 
 .cartProductTotal {
     width: 80px;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sideBar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.containerItems {
+    flex: 1;
+}
+
+.emptyCartButton {
+    margin-top: 5px;
 }

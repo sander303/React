@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
+import { Button, FloatingLabel, Form } from "react-bootstrap";
 
 function AddProduct() {
 
@@ -19,11 +20,11 @@ function AddProduct() {
     useEffect(() => {
         fetch(categoryUrl).then(res => res.json())
         .then(body => {
-            const newArray = [];
+            const categoriesFromDb = [];
             for (const key in body) {
-                newArray.push(body[key]);
+                categoriesFromDb.push(body[key]);
             }
-            setCategories(newArray);
+            setCategories(categoriesFromDb);
         })
     }, []);
 
@@ -55,24 +56,31 @@ function AddProduct() {
     return (
 
         <div>
-            <label>ID</label> <br />
-            <input ref={idRef} type="number" /> <br />
-            <label>{t("form.name")}</label> <br />
-            <input ref={nameRef} type="text" /> <br />
-            <label>Kirjeldus</label> <br />
-            <input ref={descriptionRef} type="text" /> <br />
-            <label>Kategooria</label> <br />
-            {/*<input ref={categoryRef} type="text" /> <br />*/}
-            <select ref={categoryRef}>
-                {categories.map(element => <option key={element.id}>{element.name}</option>)}
-            </select> <br />
-            <label>Hind</label> <br />
-            <input ref={priceRef} type="number" /> <br />
-            <label>Pilt</label> <br />
-            <input ref={imgSrcRef} type="text" /> <br />
-            <label>Aktiivne</label> <br />
-            <input ref={isActiveRef} type="checkbox" /> <br />
-            <button onClick={onAddProduct}>Sisesta</button>
+            <Form>
+                <Form.Group className="mb-3 d-grid gap-2">
+                    <FloatingLabel label="ID" className="mb3">
+                        <Form.Control ref={idRef} type="number" placeholder="id" />
+                    </FloatingLabel>
+                    <FloatingLabel label={t("form.name")} className="mb3">
+                        <Form.Control ref={nameRef} type="text" placeholder="name" />
+                    </FloatingLabel>
+                    <FloatingLabel label={t("form.description")} className="mb3">
+                        <Form.Control ref={descriptionRef} type="text" placeholder="description" />
+                    </FloatingLabel>      
+                        <Form.Select ref={categoryRef} aria-label="Default select example">
+                            <option>{t("form.category")}</option>
+                            {categories.map(element => <option key={element.id}>{element.name}</option>)}
+                        </Form.Select>        
+                    <FloatingLabel label={t("form.price")} className="mb3">
+                        <Form.Control ref={priceRef} type="number" placeholder="price" />
+                    </FloatingLabel>
+                    <FloatingLabel label={t("form.picture")} className="mb3">
+                        <Form.Control ref={imgSrcRef} type="text" placeholder="picture" />
+                    </FloatingLabel>
+                    <Form.Check ref={isActiveRef} type="checkbox" label={t("form.Active")} />
+                    <Button variant="secondary" onClick={() => onAddProduct()}>{t("form.enter")}</Button>
+                </Form.Group>    
+            </Form>
             <ToastContainer />
         </div>
     );
