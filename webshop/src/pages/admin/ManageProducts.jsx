@@ -50,7 +50,7 @@ function ManageProducts() {
                 </thead>
                 <tbody>
                     {products.map((element, index) =>       
-                    <tr> 
+                    <tr key={element.id}> 
                         <td>{element.id}</td>	
                         <td>{element.name}</td>
                         <td>{element.price} €</td>

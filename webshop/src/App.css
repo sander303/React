@@ -49,3 +49,13 @@ form {
   display: flex;
   align-items: flex-end;
 }
+
+#dropdown-basic-button {
+  width: 400px;
+}
+
+.dropDownItem {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}

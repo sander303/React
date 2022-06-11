@@ -42,7 +42,8 @@ const resources = {
           "category.enter": "Sisesta",
           "product.notFound": "Toodet ei leitud",
           "page.notFound": "Lehekülge ei leitud",
-          "category.delete": "Kustuta"
+          "category.delete": "Kustuta",
+          "category.added-categories": "Lisatud kategooriad"
         }
     },
     en: {
@@ -82,7 +83,8 @@ const resources = {
         "category.enter": "Enter",
         "product.notFound": "Product not found",
         "page.notFound": "Page not found",
-        "category.delete": "Delete"
+        "category.delete": "Delete",
+        "category.added-categories": "Added categories"
         }
     },
     fr: {
@@ -122,7 +124,8 @@ const resources = {
         "category.enter": "Sisesta FR",
         "product.notFound": "Toodet ei leitud FR",
         "page.notFound": "Lehekülge ei leitud FR",
-        "category.delete": "Kustuta"
+        "category.delete": "Kustuta",
+        "category.added-categories": "Lisatud kategooriad FR"
         }
     }
 };

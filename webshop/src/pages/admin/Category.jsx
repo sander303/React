@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton, FloatingLabel, Form } from "react-bootstrap";
 
 function Category() {
 
@@ -67,14 +67,16 @@ function Category() {
                         <Form.Control ref={nameRef} type="text" placeholder="name" />
                     </FloatingLabel>
                     <Button variant="secondary" onClick={() => addCategory()}>{t("category.enter")}</Button>
-                </Form.Group>    
+                </Form.Group> 
             </Form>
-            {categories.map((element, index) =>
-                <div className="categoryContainer" key={element.id}>
-                    <div className="category">{element.name}</div>
-                    <Button variant="danger" onClick={() => deleteCategory(index)}>{t("category.delete")}</Button>
-                </div>
-            )}
+            <DropdownButton id="dropdown-basic-button" title={t("category.added-categories")} variant="dark">
+                {categories.map((element, index) =>
+                    <Dropdown.Item className="dropDownItem" key={element.id}>
+                        {element.name}
+                        <Button size="sm" variant="danger" onClick={() => deleteCategory(index)}>X</Button>
+                    </Dropdown.Item>
+                )}
+            </DropdownButton>
             <ToastContainer />
         </div>
     );
