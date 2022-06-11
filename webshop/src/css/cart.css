@@ -43,9 +43,10 @@
     text-align: center;
 }
 
-.container {
+.container1 {
     display: flex;
     justify-content: space-between;
+    margin-left: 10px;
 }
 
 .sideBar {
@@ -54,6 +55,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    background-color: rgb(235, 235, 235);
+    padding: 10px;
 }
 
 .containerItems {
@@ -61,5 +64,7 @@
 }
 
 .emptyCartButton {
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-right: 10px;
 }
+

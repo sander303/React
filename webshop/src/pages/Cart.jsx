@@ -75,7 +75,7 @@ function Cart() {
     }
 
     return (
-        <div className="container">
+        <div className="container1">
             <div className="containerItems">     
                 <div className="d-grid gap-2">  
                     <Button className="emptyCartButton" variant="danger" onClick={() => emptyCart()}>{t("cart.empty ")}</Button>    
@@ -98,9 +98,9 @@ function Cart() {
                 <ToastContainer />
             </div>
             <div className="sideBar">
-                <div>{t("cart.sum")}</div>
-                <div>{getTotalPrice()} €</div>
-                <Button variant="dark" onClick={() => everyPay()}>{t("cart.pay")}</Button>
+                <div className="sideBarItems">{t("cart.sum")}</div>
+                <div className="sideBarItems">{getTotalPrice()} €</div>
+                <Button className="sideBarItems" variant="dark" onClick={() => everyPay()}>{t("cart.pay")}</Button>
             </div>
         </div>
     );
