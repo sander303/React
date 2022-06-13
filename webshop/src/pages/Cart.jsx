@@ -50,7 +50,7 @@ function Cart() {
     const getTotalPrice = () => {
         let totalPrice = 0;
         cartProducts.forEach(element => totalPrice += (Number(element.product.price) * element.quantity));
-        return totalPrice;
+        return totalPrice.toFixed(2);
     }
 
     const everyPay = () => {
@@ -90,7 +90,7 @@ function Cart() {
                         <div>{element.quantity} tk</div>
                         <img className="cartProductButton" onClick={() => increaseQuantity(element)} src={require('../assets/add.png')} alt="" />
                     </div>
-                    <div className="cartProductTotal">{element.quantity * element.product.price} €</div>
+                    <div className="cartProductTotal">{(element.quantity * element.product.price).toFixed(2)} €</div>
                     <img className="cartProductButton" onClick={() => removeFromCart(element)} src={require('../assets/delete.png')} alt="" />
                     <br />
                 </div>
