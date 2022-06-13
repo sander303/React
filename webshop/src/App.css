@@ -59,3 +59,8 @@ form {
   display: flex;
   justify-content: space-between;
 }
+
+.backBtn {
+  width: 300px;
+  margin-top: 5px;;
+}

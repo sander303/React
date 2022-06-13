@@ -43,7 +43,8 @@ const resources = {
           "product.notFound": "Toodet ei leitud",
           "page.notFound": "Lehekülge ei leitud",
           "category.delete": "Kustuta",
-          "category.added-categories": "Lisatud kategooriad"
+          "category.added-categories": "Lisatud kategooriad",
+          "selected.backBtn": "Tagasi"
         }
     },
     en: {
@@ -84,7 +85,8 @@ const resources = {
         "product.notFound": "Product not found",
         "page.notFound": "Page not found",
         "category.delete": "Delete",
-        "category.added-categories": "Added categories"
+        "category.added-categories": "Added categories",
+        "selected.backBtn": "Return"
         }
     },
     fr: {
@@ -125,7 +127,8 @@ const resources = {
         "product.notFound": "Toodet ei leitud FR",
         "page.notFound": "Lehekülge ei leitud FR",
         "category.delete": "Kustuta",
-        "category.added-categories": "Lisatud kategooriad FR"
+        "category.added-categories": "Lisatud kategooriad FR",
+        "selected.backBtn": "Tagasi FR"
         }
     }
 };

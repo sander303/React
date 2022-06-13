@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function SelectedProduct() {
 
@@ -35,6 +36,7 @@ function SelectedProduct() {
             </div>
             }
             {!found && <div>{t("product.notFound")}</div>}
+            <Link to="/"><Button className="backBtn" variant="secondary">{t("selected.backBtn")}</Button></Link>
         </div>
     );
 }
