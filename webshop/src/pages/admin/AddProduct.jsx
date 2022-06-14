@@ -16,6 +16,20 @@ function AddProduct() {
     const categoryUrl = "https://react-webshop-9e509-default-rtdb.europe-west1.firebasedatabase.app/categories.json";
     const [categories, setCategories] = useState([]);
     const { t } = useTranslation();
+    const [products, setProducts] = useState([]);
+    const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        fetch(productsUrl)
+        .then(res => res.json())
+        .then(body => {
+            const newArray = [];
+            for (const key in body) {
+                newArray.push(body[key])
+            }
+            setProducts(newArray);
+        })
+    }, []);
 
     useEffect(() => {
         fetch(categoryUrl).then(res => res.json())
@@ -53,13 +67,26 @@ function AddProduct() {
         });
     }
 
+    const checkIdUniqueness = () => {
+        const index = products.findIndex(element => Number(element.id) === Number(idRef.current.value));
+        if (index === -1) {
+            setMessage("");
+        } else {
+            setMessage("Sisestatud ID on mitteunikaalne");
+        }
+        if (idRef.current.value === "11112222") {
+            setMessage("Sisestasid pakiautomaadi ID");
+        }
+    }
+
     return (
 
         <div>
+            <div>{message}</div>
             <Form>
                 <Form.Group className="mb-3 d-grid gap-2">
                     <FloatingLabel label="ID" className="mb3">
-                        <Form.Control ref={idRef} type="number" placeholder="id" />
+                        <Form.Control onChange={checkIdUniqueness} ref={idRef} type="number" placeholder="id" />
                     </FloatingLabel>
                     <FloatingLabel label={t("form.name")} className="mb3">
                         <Form.Control ref={nameRef} type="text" placeholder="name" />
@@ -78,7 +105,7 @@ function AddProduct() {
                         <Form.Control ref={imgSrcRef} type="text" placeholder="picture" />
                     </FloatingLabel>
                     <Form.Check ref={isActiveRef} type="checkbox" label={t("form.Active")} />
-                    <Button variant="secondary" onClick={() => onAddProduct()}>{t("form.enter")}</Button>
+                    <Button disabled={message !== ""} variant="secondary" onClick={() => onAddProduct()}>{t("form.enter")}</Button>
                 </Form.Group>    
             </Form>
             <ToastContainer />

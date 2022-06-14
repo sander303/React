@@ -21,17 +21,23 @@ function Home() {
             }
             setProducts(newArray);
         })
-    }, [])
+    }, []);
 
     // {id: 1238, nimi: "Coca", price: 5}
     const addToCart = (productClicked) => {
-        let cProducts = sessionStorage.getItem("cartProducts");
-        cProducts = JSON.parse(cProducts) || [];
+        let cProducts = JSON.parse(sessionStorage.getItem("cartProducts")) || [];
+        // cProducts = JSON.parse(cProducts) || [];
         const index = cProducts.findIndex(element => element.product.id === productClicked.id);
         if (index >= 0) {
             cProducts[index].quantity = cProducts[index].quantity + 1;
         } else {
-            cProducts.push({"product": productClicked, "quantity": 1});
+            const index = cProducts.findIndex(element => element.product.id === 11112222);
+            if (index > 0) {
+                cProducts.splice(cProducts.length - 1, 0, {"product": productClicked, "quantity": 1});
+            } else {
+                cProducts.push({"product": productClicked, "quantity": 1});
+            }
+            
         } 
         cProducts = JSON.stringify(cProducts);
         sessionStorage.setItem("cartProducts", cProducts);
