@@ -3,21 +3,13 @@ import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from 'react-toastify';
 import { Button } from "react-bootstrap";
 import "../css/cart.css";
-import { useEffect } from "react";
-import { useRef } from "react";
+import ParcelMachines from "../components/ParcelMachines";
 
 function Cart() {
 
     const [cartProducts, setCartProducts] = useState(
             JSON.parse(sessionStorage.getItem("cartProducts")) || []);
     const { t } = useTranslation();
-    const [parcelMachines, setParcelMachines] = useState([]);
-
-    useEffect(() => {
-        fetch("https://www.omniva.ee/locations.json")
-        .then(res => res.json())
-        .then(body => setParcelMachines(body))
-    }, []);
 
     const decreaseQuantity = (productClicked) => {
         const index = cartProducts.findIndex(element => element.product.id === productClicked.product.id);
@@ -40,7 +32,7 @@ function Cart() {
         const index = cartProducts.findIndex(element => element.product.id === productClicked.product.id);
         cartProducts.splice(index, 1);
         if (cartProducts.length === 1 && cartProducts[0].product.id === 11112222) {
-            deleteParcelMachine();
+           // deleteParcelMachine();
         }
         setCartProducts(cartProducts.slice());
         sessionStorage.setItem("cartProducts", JSON.stringify(cartProducts));
@@ -51,7 +43,7 @@ function Cart() {
     }
 
     const emptyCart = () => {
-        deleteParcelMachine();
+      //  deleteParcelMachine();
         setCartProducts([]);
         sessionStorage.setItem("cartProducts", JSON.stringify([]));
         toast.error('Ostukorv tühjendatud!', {
@@ -87,23 +79,6 @@ function Cart() {
                 .then(body => window.location.href = body.payment_link);
     }
 
-    const addParcelMachine = () => {
-        setSelectedPM(parcelMachineRef.current.value);
-        cartProducts.push({product:{id: 11112222, name: "Pakiautomaadi tasu", price: 3.5, imgSrc: require("../assets/locker.png")}, quantity: 1});
-        sessionStorage.setItem("cartProducts", JSON.stringify(cartProducts));
-        sessionStorage.setItem("parcelMachine", parcelMachineRef.current.value);
-    }
-
-    const parcelMachineRef = useRef();
-    const [selectedPM, setSelectedPM] = useState(sessionStorage.getItem("parcelMachine"));
-
-    const deleteParcelMachine = () => {
-        setSelectedPM(null);
-        cartProducts.pop();
-        sessionStorage.setItem("cartProducts", JSON.stringify(cartProducts));
-        sessionStorage.removeItem("parcelMachine");
-    }
-
     return (
         <div className="container1">
             <div className="containerItems">     
@@ -126,15 +101,7 @@ function Cart() {
                 </div>
                 )}
                 <ToastContainer />
-                { selectedPM === null && cartProducts.length > 0 &&
-                <select onChange={addParcelMachine} ref={parcelMachineRef}>
-                    {parcelMachines.filter(element => element.A0_NAME === "EE")
-                    .map(element => <option>{element.NAME}</option>)}
-                </select>
-                }
-                { selectedPM !== null &&
-                <div>{selectedPM}<button onClick={deleteParcelMachine}>X</button></div>
-                }
+                <ParcelMachines cartProducts={cartProducts} setCProducts={setCartProducts}/>
             </div>
             <div className="sideBar">
                 <div className="sideBarItems">{t("cart.sum")}</div>

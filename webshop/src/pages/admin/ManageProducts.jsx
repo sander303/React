@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -9,6 +9,8 @@ function ManageProducts() {
     const { t } = useTranslation();
     const [products, setProducts] = useState([]);
     const productsUrl = "https://react-webshop-9e509-default-rtdb.europe-west1.firebasedatabase.app/products.json";
+    const searchedProductRef = useRef();
+    const [originalProducts, setOriginalProducts] = useState([]);
 
     useEffect(() => {
         fetch(productsUrl).then(res => res.json())
@@ -18,18 +20,24 @@ function ManageProducts() {
                productsFromDb.push(body[key]);
             }
             setProducts(productsFromDb);
+            setOriginalProducts(productsFromDb);
         })
     }, []);
 
-    const deleteProduct = (index) => {
-        products.splice(index, 1);
-        setProducts(products.slice());
+    const deleteProduct = (productClicked) => {      
+        const index =  originalProducts.findIndex(element => element.id === productClicked.id);
+        if (index >= 0) {
+            originalProducts.splice(index, 1);
+        }    
         fetch(productsUrl, {
             method: "PUT",
-            body: JSON.stringify(products),
+            body: JSON.stringify(originalProducts),
             headers: {
                 "Content-Type": "application/json"
             }
+        }).then(() => {
+            setOriginalProducts(originalProducts.slice());
+            searchProducts();
         })
         toast.error("Toode kustutatud!", {
             position: "bottom-right",
@@ -37,8 +45,20 @@ function ManageProducts() {
         });
     }
 
+    const searchProducts = () => {
+        const filteredProducts = originalProducts.filter(
+            element => element.name.toLowerCase().indexOf(searchedProductRef.current.value.toLowerCase()) >= 0 || 
+            element.description.toLowerCase().indexOf(searchedProductRef.current.value.toLowerCase()) >= 0 ||
+            element.id.toString().indexOf(searchedProductRef.current.value) >= 0);
+        setProducts(filteredProducts);
+    }
+
     return (
         <div>
+            <div>
+                <input onChange={searchProducts} ref={searchedProductRef} type="text"></input>
+                <span>{products.length}</span>
+            </div>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -49,14 +69,14 @@ function ManageProducts() {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((element, index) =>       
+                    {products.map((element) =>       
                     <tr key={element.id}> 
                         <td>{element.id}</td>	
                         <td>{element.name}</td>
                         <td>{element.price} €</td>
                         <td>{element.description}</td>
                         <td className="tableBtn"><Link to={"/admin/muuda/" + element.id}><Button variant="secondary">{t("products.edit")}</Button></Link>
-                        <Button variant="danger" onClick={() => deleteProduct(index)}>X</Button>
+                        <Button variant="danger" onClick={() => deleteProduct(element)}>X</Button>
                         </td>
                     </tr>
                 )}

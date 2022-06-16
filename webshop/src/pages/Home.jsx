@@ -4,11 +4,15 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import "../css/home.css";
+import SortButtons from "../components/SortButtons";
+import FilterBar from "../components/FilterBar";
 
 function Home() {
 
     const productsUrl = "https://react-webshop-9e509-default-rtdb.europe-west1.firebasedatabase.app/products.json"
     const [products, setProducts] = useState([]);
+    const [originalProducts, setOriginalProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -20,6 +24,10 @@ function Home() {
                 newArray.push(body[key])
             }
             setProducts(newArray);
+            setOriginalProducts(newArray);
+            let catFromProducts = newArray.map(element => element.category);
+            catFromProducts = [...new Set(catFromProducts)];
+            setCategories(catFromProducts);
         })
     }, []);
 
@@ -47,33 +55,11 @@ function Home() {
             });
     }
 
-    const sortAZ = () => {
-        products.sort((a, b) => a.name.localeCompare(b.name));
-        setProducts(products.slice());
-    }
-
-    const sortZA = () => {
-        products.sort((a, b) => b.name.localeCompare(a.name));
-        setProducts(products.slice());
-    }
-
-    const sortPriceAsc = () => {
-        products.sort((a, b) => a.price - b.price);
-        setProducts(products.slice());
-    }
-
-    const sortPriceDesc = () => {
-        products.sort((a, b) => b.price - a.price);
-        setProducts(products.slice());
-    }
-
     return (
         <div>
-            <div className="sortButtons">
-                <Button variant="dark" onClick={sortAZ}>{t("sort.AZ")}</Button>
-                <Button variant="dark" onClick={sortZA}>{t("sort.ZA")}</Button>
-                <Button variant="dark" onClick={sortPriceAsc}>{t("sort.priceAsc")}</Button>
-                <Button variant="dark" onClick={sortPriceDesc}>{t("sort.priceDesc")}</Button>
+            <div>
+                <FilterBar originalProducts={originalProducts} categories={categories} setProducts={setProducts}/>
+                <SortButtons prods={products} setHomeProducts={setProducts}/>
             </div>
             <div className="homeContents">
             {products.map(element => 
@@ -81,7 +67,9 @@ function Home() {
                     <img className="homeProductPicture" src={element.imgSrc} alt="" />
                     <div><Link to={"/toode/" + element.id}>{element.name}</Link></div>
                     <div>{element.price} €</div>
-                    <Button variant="light" onClick={() => addToCart(element)}>{t("shops.add-btn")} <img className="homeCartImage" src={require('../assets/shopping-cart.png')} alt="" /></Button>
+                    <Button variant="light" onClick={() => addToCart(element)}>
+                        {t("shops.add-btn")} <img className="homeCartImage" src={require('../assets/shopping-cart.png')} alt="" />
+                    </Button>
                 </div>)}
             </div>
             <ToastContainer />

@@ -64,3 +64,8 @@ form {
   width: 300px;
   margin-top: 5px;;
 }
+
+.activeCategory {
+  font-weight: bold;
+  text-decoration: underline;
+}
