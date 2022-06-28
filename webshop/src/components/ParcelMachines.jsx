@@ -1,3 +1,4 @@
+import { Button } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 
 function ParcelMachines(props) {
@@ -31,15 +32,16 @@ function ParcelMachines(props) {
 
     return (
 
-        <div>
-            { selectedPM === null && props.cartProducts.length > 0 &&
-            <select onChange={addParcelMachine} ref={parcelMachineRef}>
+        <div className="parcelMachines">
+            {selectedPM === null && sessionStorage.getItem("smartPostMachine") === null && props.cartProducts.length > 0 && 
+            <div className="parcelMachineType">Omniva: </div>}
+            {selectedPM === null && sessionStorage.getItem("smartPostMachine") === null && props.cartProducts.length > 0 &&
+            <select className="parcelMachineSelect" onChange={addParcelMachine} ref={parcelMachineRef}>
                 {parcelMachines.filter(element => element.A0_NAME === "EE")
                 .map(element => <option key={element.ZIP}>{element.NAME}</option>)}
-            </select>
-            }
-            { selectedPM !== null &&
-            <div>{selectedPM}<button onClick={deleteParcelMachine}>X</button></div>
+            </select>}
+            {selectedPM !== null &&
+            <div>{selectedPM} <Button variant="danger" size="sm" onClick={deleteParcelMachine}>X</Button></div>
             }
         </div>
     );

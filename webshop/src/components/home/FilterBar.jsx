@@ -16,7 +16,7 @@ function FilterBar(props) {
     }
 
     return (
-        <div>
+        <div className="categories">
             <div className={activeCategory === "all" ? "activeCategory": undefined} onClick={() => filterByCat("all")}>Kõik kategooriad</div>
             {props.categories.map(element => 
             <div key={element} className={activeCategory === element ? "activeCategory": undefined} onClick={() => filterByCat(element)}>{element}</div>)}

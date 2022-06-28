@@ -17,6 +17,7 @@ function EditProduct() {
     const { productId } = useParams();
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [message, setMessage] = useState("");
     const productsUrl = "https://react-webshop-9e509-default-rtdb.europe-west1.firebasedatabase.app/products.json";
     const categoryUrl = "https://react-webshop-9e509-default-rtdb.europe-west1.firebasedatabase.app/categories.json";
 
@@ -53,7 +54,7 @@ function EditProduct() {
             category: categoryRef.current.value,
             price: priceRef.current.value,
             imgSrc: imgSrcRef.current.value,
-            isActive: isActiveRef.current.value
+            isActive: isActiveRef.current.checked
         }
         products[index] = changedProduct;
 
@@ -70,14 +71,27 @@ function EditProduct() {
         });
     }
 
+    const checkIdUniqueness = () => {
+        const index = products.findIndex(element => Number(element.id) === Number(idRef.current.value));
+        if (index === -1) {
+            setMessage("");
+        } else {
+            setMessage("Sisestatud ID on mitteunikaalne");
+        }
+        if (idRef.current.value === "11112222") {
+            setMessage("Sisestasid pakiautomaadi ID");
+        }
+    }
+
     return (
         <div>
+            <div>{message}</div>
             {found &&
             <div>
                  <Form>
                     <Form.Group className="mb-3 d-grid gap-2">
                         <FloatingLabel label="ID" className="mb3">
-                            <Form.Control ref={idRef} defaultValue={found.id} type="number" placeholder="id" />
+                            <Form.Control onChange={checkIdUniqueness} ref={idRef} defaultValue={found.id} type="number" placeholder="id" />
                         </FloatingLabel>
                         <FloatingLabel label={t("form.name")} className="mb3">
                             <Form.Control ref={nameRef} defaultValue={found.name} type="text" placeholder="openHrs" />
@@ -96,7 +110,7 @@ function EditProduct() {
                             <Form.Control ref={imgSrcRef} defaultValue={found.imgSrc} type="text" placeholder="picture" />
                         </FloatingLabel>
                         <Form.Check ref={isActiveRef} defaultValue={found.isActive} type="checkbox" label={t("form.Active")} />
-                        <Button variant="secondary" onClick={() => changeProduct()}>{t("products.edit")}</Button>
+                        <Button disabled={message !== ""} variant="secondary" onClick={() => changeProduct()}>{t("products.edit")}</Button>
                     </Form.Group>    
                 </Form>
             </div>

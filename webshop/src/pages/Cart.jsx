@@ -4,6 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Button } from "react-bootstrap";
 import "../css/cart.css";
 import ParcelMachines from "../components/ParcelMachines";
+import SmartPostMachines from "../components/SmartPostMachines";
+import EveryPay from "../components/EveryPay";
 
 function Cart() {
 
@@ -55,30 +57,10 @@ function Cart() {
     const getTotalPrice = () => {
         let totalPrice = 0;
         cartProducts.forEach(element => totalPrice += (Number(element.product.price) * element.quantity));
-        return totalPrice.toFixed(2);
+        totalPrice = totalPrice.toFixed(2);
+        return totalPrice;
     }
-
-    const everyPay = () => {
-        const paymentDetails = {
-            "api_username": "92ddcfab96e34a5f",
-            "account_name": "EUR3D1",
-            "amount": getTotalPrice(),
-            "order_reference": Math.floor(Math.random()*899999+100000),
-            "nonce": "a9bgt902" + new Date() + Math.floor(Math.random()*899999+100000),
-            "timestamp": new Date(),
-            "customer_url": "https://react-webshop-1.web.app/"
-            }
-            fetch("https://igw-demo.every-pay.com/api/v4/payments/oneoff", {
-                method: "POST",
-                body: JSON.stringify(paymentDetails),
-                headers: {
-                    "Authorization": "Basic OTJkZGNmYWI5NmUzNGE1Zjo4Y2QxOWU5OWU5YzJjMjA4ZWU1NjNhYmY3ZDBlNGRhZA==",
-                    "Content-Type": "application/json"
-                }
-            }).then(res => res.json())
-                .then(body => window.location.href = body.payment_link);
-    }
-
+ 
     return (
         <div className="container1">
             <div className="containerItems">     
@@ -101,12 +83,13 @@ function Cart() {
                 </div>
                 )}
                 <ToastContainer />
-                <ParcelMachines cartProducts={cartProducts} setCProducts={setCartProducts}/>
+                <SmartPostMachines cartProducts={cartProducts} setCProducts={setCartProducts}/>
+                <ParcelMachines cartProducts={cartProducts} setCProducts={setCartProducts}/>          
             </div>
             <div className="sideBar">
                 <div className="sideBarItems">{t("cart.sum")}</div>
                 <div className="sideBarItems">{getTotalPrice()} €</div>
-                <Button className="sideBarItems" variant="dark" onClick={() => everyPay()}>{t("cart.pay")}</Button>
+                <EveryPay totalPrice={getTotalPrice}/>
             </div>
         </div>
     );

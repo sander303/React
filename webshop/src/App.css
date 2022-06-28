@@ -69,3 +69,39 @@ form {
   font-weight: bold;
   text-decoration: underline;
 }
+
+.categories {
+  display: flex;
+  gap: 20px;
+  background-color: rgb(206, 206, 206);
+}
+
+.categories > div {
+  cursor: pointer;
+}
+
+.parcelMachines {
+  background-color: rgb(235, 235, 235);
+  display: flex;
+}
+
+.parcelMachineSelect {
+  width: 400px;
+}
+
+.parcelMachineType {
+  width: 100px;
+}
+
+.active {
+  border: 1px solid green;
+}
+
+.inactive {
+  border: 1px solid red;
+}
+
+.carousel {
+  width: 502px;
+  margin: auto;
+}

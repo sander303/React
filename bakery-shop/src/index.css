@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+td:nth-child(1) {  
+  font-weight: bold;
+}
+
+.redText {
+  color: red;
+}
+
+.input-row {
+  color: red;
+  font-weight: bold;
+}
+
+.avatar {
+  text-align: center;
+}
