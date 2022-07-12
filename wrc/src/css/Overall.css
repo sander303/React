@@ -1,0 +1,47 @@
+.overall {
+    margin: 15px;
+    margin-bottom: 100px;
+}
+
+.standings {
+    display: flex;
+    margin-bottom: 5px;
+  }
+
+.overall-position {
+    width: 50px;
+}
+  
+.overall-name {
+    width: 250px;
+    font-weight: bold;
+}
+
+.overall-country {
+    width: 100px;
+}
+
+.overall-time {
+    width: 80px;
+    font-weight: bold;
+}
+
+.overall-diff-prev {
+    width: 150px;
+    text-align: end;
+}
+
+.overall-diff-first {
+    width: 150px;
+    text-align: end;
+}
+
+.stages {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.overall-status {
+    margin-left: 100px;
+}

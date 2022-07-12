@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from "react-i18next";
+import { sumOfCartService } from '../../store/sumOfCartService';
 
 function Product(props) {
 
@@ -19,9 +20,12 @@ function Product(props) {
                 cProducts.splice(cProducts.length - 1, 0, {"product": productClicked, "quantity": 1});
             } else {
                 cProducts.push({"product": productClicked, "quantity": 1});
-            }
-            
+            }       
         } 
+        let sumOfCart = 0;
+        cProducts.forEach(element => sumOfCart += (Number(element.product.price) * element.quantity));
+        sumOfCartService.sendCartSum(sumOfCart);   
+
         cProducts = JSON.stringify(cProducts);
         sessionStorage.setItem("cartProducts", cProducts);
         toast.success('Toode edukalt lisatud!', {

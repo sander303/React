@@ -1,0 +1,39 @@
+.banner {
+  width: 100%;
+}
+
+.nav-tabs .nav-link {
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+  font-size: 22px;
+  border: 1px solid #000000;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.itinerary {
+  margin-bottom: 100px;
+}
+
+.red-text {
+  color: red;
+  }
+  
+.green-text {
+  color: green;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+button {
+  width: 70px;
+}
+
+.standings-container {
+  display: flex;
+  width: 800px;
+}
+
+ 

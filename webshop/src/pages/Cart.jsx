@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ToastContainer, toast } from 'react-toastify';
 import { Button } from "react-bootstrap";
 import "../css/cart.css";
 import ParcelMachines from "../components/ParcelMachines";
 import SmartPostMachines from "../components/SmartPostMachines";
 import EveryPay from "../components/EveryPay";
+import { sumOfCartService } from '../store/sumOfCartService';
 
 function Cart() {
 
@@ -19,15 +19,13 @@ function Cart() {
         if (cartProducts[index].quantity === 0) {
             removeFromCart(productClicked);
         }
-        setCartProducts(cartProducts.slice());
-        sessionStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+        updateCart();
     }
 
     const increaseQuantity = (productClicked) => {
         const index = cartProducts.findIndex(element => element.product.id === productClicked.product.id);
         cartProducts[index].quantity = cartProducts[index].quantity + 1;
-        setCartProducts(cartProducts.slice());
-        sessionStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+        updateCart();
     }
 
     const removeFromCart = (productClicked) => {
@@ -36,22 +34,20 @@ function Cart() {
         if (cartProducts.length === 1 && cartProducts[0].product.id === 11112222) {
            // deleteParcelMachine();
         }
-        setCartProducts(cartProducts.slice());
-        sessionStorage.setItem("cartProducts", JSON.stringify(cartProducts));
-        toast.error('Toode eemaldatud!', {
-            position: "bottom-right",
-            theme: "dark"
-            });
+        updateCart();
     }
 
     const emptyCart = () => {
       //  deleteParcelMachine();
         setCartProducts([]);
         sessionStorage.setItem("cartProducts", JSON.stringify([]));
-        toast.error('Ostukorv tühjendatud!', {
-            position: "bottom-right",
-            theme: "dark"
-            });
+        sumOfCartService.sendCartSum(0);
+    }
+
+    const updateCart = () => {
+        setCartProducts(cartProducts.slice());
+        sessionStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+        sumOfCartService.sendCartSum(getTotalPrice());
     }
 
     const getTotalPrice = () => {
@@ -82,7 +78,6 @@ function Cart() {
                     <br />
                 </div>
                 )}
-                <ToastContainer />
                 <SmartPostMachines cartProducts={cartProducts} setCProducts={setCartProducts}/>
                 <ParcelMachines cartProducts={cartProducts} setCProducts={setCartProducts}/>          
             </div>

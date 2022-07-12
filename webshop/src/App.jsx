@@ -12,6 +12,7 @@ import NotFound from './pages/NotFound';
 import ManageProducts from './pages/admin/ManageProducts';
 import EditProduct from './pages/admin/EditProduct';
 import SelectedProduct from './pages/SelectedProduct';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="cart" exact element={ <Cart /> } />
         <Route path="admin" exact element={ <AdminHome /> } />
         <Route path="poed" exact element={ <Shops /> } />
+        <Route path="meist" exact element={ <AboutUs /> } />
         <Route path="toode/:productId" exact element={ <SelectedProduct /> } />
         <Route path="admin/halda-poode" exact element={ <ShopsSettings /> } />
         <Route path="admin/lisa-toode" exact element={ <AddProduct /> } />

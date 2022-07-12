@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
+import FileUpload from "../../components/FileUpload";
 
 function AddProduct() {
 
@@ -18,6 +19,8 @@ function AddProduct() {
     const { t } = useTranslation();
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
+    const [showUrlUpload, setShowUrlUpload] = useState(true);
 
     useEffect(() => {
         fetch(productsUrl)
@@ -50,7 +53,7 @@ function AddProduct() {
             description: descriptionRef.current.value,
             category: categoryRef.current.value,
             price: priceRef.current.value,
-            imgSrc: imgSrcRef.current.value,
+            imgSrc: imageUrl,
             isActive: isActiveRef.current.checked
         }
 
@@ -79,6 +82,17 @@ function AddProduct() {
         }
     }
 
+    const urlRef = useRef();
+    const uploadRef = useRef();
+
+    const radioChecked = (clicked) => {
+        if (urlRef.current.checked) {
+            setShowUrlUpload(true);
+        } else {
+            setShowUrlUpload(false);
+        }
+    }
+
     return (
 
         <div>
@@ -101,9 +115,12 @@ function AddProduct() {
                     <FloatingLabel label={t("form.price")} className="mb3">
                         <Form.Control ref={priceRef} type="number" placeholder="price" />
                     </FloatingLabel>
-                    <FloatingLabel label={t("form.picture")} className="mb3">
-                        <Form.Control ref={imgSrcRef} type="text" placeholder="picture" />
-                    </FloatingLabel>
+                        <input ref={urlRef} onChange={radioChecked} type="radio" id="url" name="image_source" value="URL" />
+                        <label for="url">URLina</label> <br />
+                        <input ref={uploadRef} onChange={radioChecked} type="radio" id="upload" name="image_source" value="UPLOAD" />
+                        <label for="upload">Laen ise üles</label> <br />
+                        {showUrlUpload === true && <input ref={imgSrcRef} type="text" />}
+                        {showUrlUpload === false && <FileUpload onSendPictureUrl={setImageUrl} />} <br />        
                     <Form.Check ref={isActiveRef} type="checkbox" label={t("form.Active")} />
                     <Button disabled={message !== ""} variant="secondary" onClick={() => onAddProduct()}>{t("form.enter")}</Button>
                 </Form.Group>    

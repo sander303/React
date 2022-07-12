@@ -5,6 +5,7 @@ import SortButtons from "../components/home/SortButtons";
 import FilterBar from "../components/home/FilterBar";
 import Product from "../components/home/Product";
 import CarouselGallery from "../components/home/CarouselGallery"
+import Spinner from "../components/Spinner";
 
 function Home() {
 
@@ -12,6 +13,7 @@ function Home() {
     const [products, setProducts] = useState([]);
     const [originalProducts, setOriginalProducts] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [isLoading, setLoading] = useState(true);
     
     useEffect(() => {
         fetch(productsUrl)
@@ -29,6 +31,7 @@ function Home() {
             let catFromProducts = newArray.map(element => element.category);
             catFromProducts = [...new Set(catFromProducts)];
             setCategories(catFromProducts);
+            setLoading(false);
         })
     }, []);
  
@@ -38,6 +41,7 @@ function Home() {
                 <CarouselGallery />
                 <FilterBar originalProducts={originalProducts} categories={categories} setProducts={setProducts}/>
                 <SortButtons prods={products} setHomeProducts={setProducts}/>
+                {isLoading && <Spinner />}
             </div>
             <div className="homeContents">
                 {products.map(el => <Product key={el.id} element={el} />)}

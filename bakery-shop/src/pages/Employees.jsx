@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import validator from 'validator';
+import validator from "validator";
 
 function Employees() {
 
@@ -34,7 +34,7 @@ function Employees() {
     }
     if (validator.isEmail(emailRef.current.value) && 
         validator.isNumeric(idRef.current.value) && 
-        validator.isAlpha(nameRef.current.value) && 
+        validator.isAlpha(nameRef.current.value.replaceAll(' ', '')) && 
         validator.isURL(avatarRef.current.value)) {
       employees.push(newEmployee);
       setEmployees(employees.slice());
@@ -49,7 +49,7 @@ function Employees() {
     } else {
       setIdError("");
     }
-    if (!validator.isAlpha(nameRef.current.value)) {
+    if (!validator.isAlpha(nameRef.current.value.replaceAll(' ', ''))) {
       setNameError("Incorrect name!");
     } else {
       setNameError("");
@@ -64,8 +64,10 @@ function Employees() {
   const deleteEmployee = (employee) => {
     // TODO: Delete an employee from the table
     const index =  employees.findIndex(element => element.id === employee.id);
-    employees.splice(index, 1);
-    setEmployees(employees.slice());
+    if (index >= 0) {
+      employees.splice(index, 1);
+      setEmployees(employees.slice());
+    } 
   }
 
   return (<div>

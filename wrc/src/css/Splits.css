@@ -1,0 +1,41 @@
+.splits {
+    display: flex;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .driver-splits {
+    display: flex;
+  }
+
+  .splits-table {
+    display: flex;
+    gap: 50px;
+  }
+
+  .individual-split {
+    width: 100px;
+    margin-left: 50px;
+    display: flex;
+  }
+
+  .individual-driver-split {
+    width: 100px;
+    margin-left: 50px;
+    text-align: end;
+  }
+
+  .stage-end {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .driver-name {
+    width: 20px;
+    font-weight: bold;
+  }
+
+  .stage-end-time {
+    font-weight: bold;
+    text-align: end;
+  }
