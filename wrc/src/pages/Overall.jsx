@@ -11,8 +11,8 @@ function Overall() {
         driverId: [],
         driverCountry: []
     });
-    const standingsUrl = "https://api.wrc.com/results-api/rally-event/1955/result";
-    const driversUrl = "https://api.wrc.com/results-api/rally-event/1955/cars"
+    const standingsUrl = "https://api.wrc.com/results-api/rally-event/1982/result";
+    const driversUrl = "https://api.wrc.com/results-api/rally-event/1982/cars"
     
     useEffect(() => {
         fetch(driversUrl)

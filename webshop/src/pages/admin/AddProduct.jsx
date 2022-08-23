@@ -115,12 +115,10 @@ function AddProduct() {
                     <FloatingLabel label={t("form.price")} className="mb3">
                         <Form.Control ref={priceRef} type="number" placeholder="price" />
                     </FloatingLabel>
-                        <input ref={urlRef} onChange={radioChecked} type="radio" id="url" name="image_source" value="URL" />
-                        <label for="url">URLina</label> <br />
-                        <input ref={uploadRef} onChange={radioChecked} type="radio" id="upload" name="image_source" value="UPLOAD" />
-                        <label for="upload">Laen ise üles</label> <br />
+                        <Form.Check ref={urlRef} onChange={radioChecked} type="radio" id="url" name="image_source" value="URL" label={t("form.image-as-url")} />
+                        <Form.Check ref={uploadRef} onChange={radioChecked} type="radio" id="upload" name="image_source" value="UPLOAD" label={t("form.image-upload")}/>
                         {showUrlUpload === true && <input ref={imgSrcRef} type="text" />}
-                        {showUrlUpload === false && <FileUpload onSendPictureUrl={setImageUrl} />} <br />        
+                        {showUrlUpload === false && <FileUpload onSendPictureUrl={setImageUrl} />}   
                     <Form.Check ref={isActiveRef} type="checkbox" label={t("form.Active")} />
                     <Button disabled={message !== ""} variant="secondary" onClick={() => onAddProduct()}>{t("form.enter")}</Button>
                 </Form.Group>    

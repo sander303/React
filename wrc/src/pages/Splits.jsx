@@ -15,9 +15,9 @@ function Splits() {
         driverId: []
     });
     const [fastestSplits, setFastestSplits] = useState({});
-    const itineraryUrl = "https://api.wrc.com/results-api/rally-event/1955/itinerary";
-    const driversUrl = "https://api.wrc.com/results-api/rally-event/1955/cars";
-    const [splitsUrl, setSplitsUrl] = useState(`https://api.wrc.com/results-api/rally-event/1955/split-times/stage-external/3217`);
+    const itineraryUrl = "https://api.wrc.com/results-api/rally-event/1982/itinerary";
+    const driversUrl = "https://api.wrc.com/results-api/rally-event/1982/cars";
+    const [splitsUrl, setSplitsUrl] = useState(`https://api.wrc.com/results-api/rally-event/1982/split-times/stage-external/3590`);
 
     useEffect(() => {
         fetch(driversUrl)
@@ -80,7 +80,7 @@ function Splits() {
     }, [drivers, splitsUrl]);
 
     const changeStage = (id) => {
-        setSplitsUrl(`https://api.wrc.com/results-api/rally-event/1955/split-times/stage-external/${id}`);
+        setSplitsUrl(`https://api.wrc.com/results-api/rally-event/1982/split-times/stage-external/${id}`);
     }
 
     return (
@@ -117,6 +117,7 @@ function Splits() {
                                     "green-text bold-text individual-driver-split": "red-text individual-driver-split"}>
                                         +{moment.duration(element.elapsedDurationMs - fastestSplits[element.splitPointId])
                                         .format("H:mm:ss.SS", {trim: "large final", stopTrim: "s"})}
+                                      
                                     </div>
                                 )}
                             </div>

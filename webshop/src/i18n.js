@@ -44,7 +44,10 @@ const resources = {
           "page.notFound": "Lehekülge ei leitud",
           "category.delete": "Kustuta",
           "category.added-categories": "Lisatud kategooriad",
-          "selected.backBtn": "Tagasi"
+          "selected.backBtn": "Tagasi",
+          "form.image-as-url": "URLina",
+          "form.image-upload": "Laen ise üles",
+          "file.upload": "Lae üles"
         }
     },
     en: {
@@ -86,7 +89,10 @@ const resources = {
         "page.notFound": "Page not found",
         "category.delete": "Delete",
         "category.added-categories": "Added categories",
-        "selected.backBtn": "Return"
+        "selected.backBtn": "Return",
+        "form.image-as-url": "URL",
+        "form.image-upload": "Upload",
+        "file.upload": "Upload"
         }
     },
     fr: {
@@ -128,7 +134,10 @@ const resources = {
         "page.notFound": "Lehekülge ei leitud FR",
         "category.delete": "Kustuta",
         "category.added-categories": "Lisatud kategooriad FR",
-        "selected.backBtn": "Tagasi FR"
+        "selected.backBtn": "Tagasi FR",
+        "form.image-as-url": "URLina FR",
+        "form.image-upload": "Laen ise üles FR",
+        "file.upload": "Lae üles FR"
         }
     }
 };

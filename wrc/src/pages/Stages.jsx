@@ -13,9 +13,9 @@ function Stages() {
         driverCountry: []
     });
     const [stages, setStages] = useState([]);
-    const itineraryUrl = "https://api.wrc.com/results-api/rally-event/1955/itinerary";
-    const driversUrl = "https://api.wrc.com/results-api/rally-event/1955/cars";
-    const [standingsUrl, setStandingsUrl] = useState(`https://api.wrc.com/results-api/rally-event/1955/stage-times/stage-external/3217`);
+    const itineraryUrl = "https://api.wrc.com/results-api/rally-event/1982/itinerary";
+    const driversUrl = "https://api.wrc.com/results-api/rally-event/1982/cars";
+    const [standingsUrl, setStandingsUrl] = useState(`https://api.wrc.com/results-api/rally-event/1982/stage-times/stage-external/3590`);
     
     useEffect(() => {
         fetch(itineraryUrl)
@@ -68,7 +68,7 @@ function Stages() {
     }, [drivers, standingsUrl]);
 
     const changeStage = (id) => {
-        setStandingsUrl(`https://api.wrc.com/results-api/rally-event/1955/stage-times/stage-external/${id}`);
+        setStandingsUrl(`https://api.wrc.com/results-api/rally-event/1982/stage-times/stage-external/${id}`);
     }
 
     return (

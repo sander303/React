@@ -1,8 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useTranslation } from "react-i18next";
 
 function FileUpload(props) {
     let fileToUpload;
+    const { t } = useTranslation();
     
     // Set the configuration for your app
     // TODO: Replace with your app's config object
@@ -75,7 +77,7 @@ function FileUpload(props) {
 
     return (<div>
     <input onChange={(e) => handleFileInput(e)} type="file" />
-    <button onClick={() => uploadPicture(fileToUpload)}>Lae üles</button>
+    <button onClick={() => uploadPicture(fileToUpload)}>{t("file.upload")}</button>
     </div>)
 }
 
